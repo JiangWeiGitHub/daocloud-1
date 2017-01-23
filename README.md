@@ -3,33 +3,27 @@
 ### Goal
   Run a `express` docker with `volume`, add a json file into this volume on `DaoCloud`'s webpage, check whether the file is working with `express` server running inside docker which I use for printing log.
 
-### Local Development
-  + run docker server <p>
-  `docker -H tcp://192.168.154.140:6666 daemon --registry-mirror=http://f2d6cb40.m.daocloud.io`
-  
-  + create `Dockerfile`
-  
-  + run `Dockerfile` & create `VolumeAccess` image <p>
-  `docker -H tcp://192.168.154.140:6666 build -t=volume_access .`
-  
-  + create `sample.json` <p>
-  ```
-    {
-      "version": "0.0.1",
-      "name": "Volume Access Test",
-      "Infor": "Hello World"
-    }
-  ```
+### Procedure
+  + login into `DaoCloud` website's `Dashboard` <p>
 
-  + run this image <p>
-  `docker -H tcp://192.168.154.140:6666 run -p 8080:8080/tcp -v /home/wisnuc/Documents/sample.json:/data/sample.json d859720fc016`
-  
-  + open `chrome`, check whether is working
-  `192.168.154.140:8080`
-  
-### DaoCloud Development
-  + create a new project <p>
+  + add `sample.json` into `volume`
  
-  + create a new image <p>
+  + create a new `project` <p>
+    - click `create project` button <p>
+    - name the project <p>
+    - configure github project `daocloud` as this project's `code source`
+    - click `create project` button <p>
+
+  + create a new `image` <p>
+    - add `code commit` as a new `trigger rule`
+    - choose `master` branch, then click `manual build` button to create this image
+
+  + create a new `application`
+    - click `create application` button <p>
+    - choose `daocloud` image, then click `deploy the newest version` button
+    - name the application <p>
+    - click `basic setting` <p>
+    - choose `volume binding` <p>
+    - click `deploy instantly` <p>
   
-  + run this image <p>
+  + done <p>
